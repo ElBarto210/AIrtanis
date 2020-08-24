@@ -19,7 +19,7 @@ class Airtanis(sc2.BotAI):
             if self.can_afford(PROBE):
                 await self.do(nexus.train(PROBE))
 
-     async def build_pylons(self):
+    async def build_pylons(self):
         if self.supply_left < 5 and not self.already_pending(PYLON):
             nexuses = self.units(NEXUS).ready
             if nexuses.exists:
