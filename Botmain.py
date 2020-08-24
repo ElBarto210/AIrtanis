@@ -8,10 +8,10 @@ class Airtanis(sc2.BotAI):
     async def on_step(self, iteration):
         # what to do every step
         await self.distribute_workers()  # in sc2/bot_ai.py
-        await self.build_workers()
-        await self.build_pylons()
-        await self.expand()
-        await self.build_assimilator
+        await self.build_workers() #workers are a must
+        await self.build_pylons()  #pylons are needed to build things
+        await self.expand() #more nexus more resources
+        await self.build_assimilator #gas
 
     async def build_workers(self):
         # nexus = command center
