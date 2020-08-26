@@ -42,6 +42,24 @@ class Airtanis(sc2.BotAI):
                 if not self.units(ASSIMILATOR).closer_than(1.0, vaspene).exists:
                     await self.do(worker.build(ASSIMILATOR, vaspene))
 
+    async def offensive_force_buildings(self):
+        if self.units(PYLON).ready.exists:
+            pylon = self.units(PYLON).ready.random
+            if self.units(GATEWAY).ready.exists:
+                if not self.units(CYBERNETICSCORE):
+                    if self.can_afford(CYBERNETICSCORE) and not self.already_pending(CYBERNETICSCORE):
+                        await self.build(CYBERNETICSCORE, near=pylon)
+            else:
+                if self.can_afford(GATEWAY) and not self.already_pending(GATEWAY):
+                    await self.build(GATEWAY, near=pylon)
+
+    async def build_offensive_force(self):
+        for gw in self.units(GATEWAY).ready.noqueue:
+            if self.can_afford(STALKER) and self.supply_left > 0:
+                await self.do(gw.train(STALKER))
+
+    
+
 run_game(maps.get("AbyssalReefLE"), [
     Bot(Race.Protoss, Airtanis()),
     Computer(Race.Terran, Difficulty.Easy)
